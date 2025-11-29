@@ -754,3 +754,51 @@ function fnc__specialcol_(values, context) {
 function fnc_project_color(values, context) {
     return false;
 };
+
+
+
+function exp_square_coords_webmap_1rule0_eval_expression(context) {
+    // fid  IN (1, 2, 3)
+
+    var feature = context.feature;
+    
+    if (feature.properties) {
+        return "1, 2, 3".indexOf(feature.properties['fid'] ) > -1 ;
+    } else {
+        return "1, 2, 3".indexOf(feature['fid'] ) > -1 ;
+    }
+}
+
+
+function exp_square_coords_webmap_1rule1_eval_expression(context) {
+    // fid  IN (4, 5, 6)
+
+    var feature = context.feature;
+    
+    if (feature.properties) {
+        return "4, 5, 6".indexOf(feature.properties['fid'] ) > -1 ;
+    } else {
+        return "4, 5, 6".indexOf(feature['fid'] ) > -1 ;
+    }
+}
+
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("carousel-prev") ||
+      e.target.classList.contains("carousel-next")) {
+
+    let container = e.target.closest(".carousel");
+    let images = container.querySelectorAll(".carousel-img");
+
+    let index = Array.from(images).findIndex(img => img.style.display !== "none");
+
+    images[index].style.display = "none";
+
+    if (e.target.classList.contains("carousel-prev")) {
+      index = (index === 0) ? images.length - 1 : index - 1;
+    } else {
+      index = (index === images.length - 1) ? 0 : index + 1;
+    }
+
+    images[index].style.display = "block";
+  }
+});

@@ -35,16 +35,11 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
-        <script src="data/quare_coords_webmap_1.js"></script>
+        <script src="data/square_coords_webmap_1.js"></script>
         <script>
-        var highlightLayer;
-        function highlightFeature(e) {
-            highlightLayer = e.target;
-            highlightLayer.openPopup();
-        }
         var map = L.map('map', {
-            zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[47.336491597668704,8.47033152475088],[47.42647300781864,8.698306062267923]]);
+            zoomControl:false, maxZoom:20, minZoom:1
+        }).fitBounds([[47.34226144462107,8.472107634746365],[47.42920976232118,8.633602067258517]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -119,34 +114,22 @@
         map.getPane('pane_OSMStandard_0').style.zIndex = 400;
         var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             pane: 'pane_OSMStandard_0',
-            opacity: 1.0,
+            opacity: 0.595,
             attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
             minZoom: 1,
-            maxZoom: 28,
+            maxZoom: 20,
             minNativeZoom: 0,
             maxNativeZoom: 19
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function pop_quare_coords_webmap_1(feature, layer) {
-            layer.on({
-                mouseout: function(e) {
-                    if (typeof layer.closePopup == 'function') {
-                        layer.closePopup();
-                    } else {
-                        layer.eachLayer(function(feature){
-                            feature.closePopup()
-                        });
-                    }
-                },
-                mouseover: highlightFeature,
-            });
+        function pop_square_coords_webmap_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(String(feature.properties['name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['image_html'] !== null ? autolinker.link(String(feature.properties['image_html']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['image_carousel'] !== null ? autolinker.link(String(feature.properties['image_carousel']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -155,43 +138,68 @@
 			});
 			layer.bindPopup(content, { maxHeight: 400 });
         }
-
-        function style_quare_coords_webmap_1_0() {
-            return {
-                pane: 'pane_quare_coords_webmap_1',
-                radius: 8.0,
+        function style_square_coords_webmap_1_0(feature) {
+            var context = {
+                feature: feature,
+                variables: {}
+            };
+            // Start of if blocks and style check logic
+            if (exp_square_coords_webmap_1rule0_eval_expression(context)) {
+                  return {
+                pane: 'pane_square_coords_webmap_1',
+                radius: 12.0,
                 opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
+                color: 'rgba(255,255,255,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1,
+                weight: 4.0,
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(141,90,153,1.0)',
+                fillColor: 'rgba(31,120,180,1.0)',
                 interactive: true,
+            };
+                }
+                else if (exp_square_coords_webmap_1rule1_eval_expression(context)) {
+                  return {
+                pane: 'pane_square_coords_webmap_1',
+                radius: 12.0,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,127,0,1.0)',
+                interactive: true,
+            };
+                }
+            else {
+                return {fill: false, stroke: false};
             }
         }
-        map.createPane('pane_quare_coords_webmap_1');
-        map.getPane('pane_quare_coords_webmap_1').style.zIndex = 401;
-        map.getPane('pane_quare_coords_webmap_1').style['mix-blend-mode'] = 'normal';
-        var layer_quare_coords_webmap_1 = new L.geoJson(json_quare_coords_webmap_1, {
+        map.createPane('pane_square_coords_webmap_1');
+        map.getPane('pane_square_coords_webmap_1').style.zIndex = 401;
+        map.getPane('pane_square_coords_webmap_1').style['mix-blend-mode'] = 'normal';
+        var layer_square_coords_webmap_1 = new L.geoJson(json_square_coords_webmap_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_quare_coords_webmap_1',
-            layerName: 'layer_quare_coords_webmap_1',
-            pane: 'pane_quare_coords_webmap_1',
-            onEachFeature: pop_quare_coords_webmap_1,
+            dataVar: 'json_square_coords_webmap_1',
+            layerName: 'layer_square_coords_webmap_1',
+            pane: 'pane_square_coords_webmap_1',
+            onEachFeature: pop_square_coords_webmap_1,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_quare_coords_webmap_1_0(feature));
+                return L.circleMarker(latlng, style_square_coords_webmap_1_0(feature));
             },
         });
-        bounds_group.addLayer(layer_quare_coords_webmap_1);
-        map.addLayer(layer_quare_coords_webmap_1);
+        bounds_group.addLayer(layer_square_coords_webmap_1);
+        map.addLayer(layer_square_coords_webmap_1);
         setBounds();
         </script>        
     </body>
